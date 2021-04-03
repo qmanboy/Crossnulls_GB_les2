@@ -1,12 +1,20 @@
 # include <iostream>
-enum Cell {
+ 
+ enum Cell {
      Empty, X, O
     };
+ 
  using Cells_massive = Cell[3][3];
-int main() 
-{
- Cells_massive cells{Empty, Empty, Empty, 
+ 
+ struct GameField {
+  Cells_massive cells{Empty, Empty, Empty, 
                      Empty, Empty, Empty, 
                      Empty, Empty, Empty};
+  Cell winner = Empty;
+ };
+
+int main() 
+{
+ 
        
 }
