@@ -1,0 +1,7 @@
+[
+{
+  "directory": "F:/GB/C++ base/les2/crossnulls/build",
+  "command": "\"C:/Program Files/LLVM/bin/clang++.exe\"   -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -std=gnu++17 -o CMakeFiles/TTTG.dir/main.cpp.obj -c \"F:/GB/C++ base/les2/crossnulls/main.cpp\"",
+  "file": "F:/GB/C++ base/les2/crossnulls/main.cpp"
+}
+]

@@ -1,0 +1,3 @@
+F:/GB/C++ base/les2/crossnulls/build/CMakeFiles/TTTG.dir
+F:/GB/C++ base/les2/crossnulls/build/CMakeFiles/edit_cache.dir
+F:/GB/C++ base/les2/crossnulls/build/CMakeFiles/rebuild_cache.dir
