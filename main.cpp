@@ -1,19 +1,19 @@
 #include <iostream>
-#include "logic.hpp"
 #include "playermove.hpp"
 #include "aimove.hpp"
+#include "field.hpp"
 #include <cassert>
  
 int main() {
-
-print_greeting(); //приветствие 
 
 do //повторять пока не выбран выход из игры
 { 
 
     TurnOutCome outcome{}; //переменная статуса игры 
 
-    GameField field{}; //поле
+    CellState *field = Fieldptr; //поле
+
+    init_field(field); // инициализация поля
 
     PlayerSign current_player = PlayerSign::X; //знак текущего игрока
          //запрос и вывод размеров поля

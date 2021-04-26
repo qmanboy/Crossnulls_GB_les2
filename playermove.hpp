@@ -1,13 +1,11 @@
 #pragma once
 
-#include "logic.hpp"
 #include <iostream>
+#include "logic.hpp"
 
-void print_greeting() {  //приветствие
-    std::cout <<"Welcome to Tic Tak Toe game!\n\n";
-}
 
-Pos_move query_player_move(GameField& field) { //считывание хода игрока, проверка на правильность введенных данных
+
+Pos_move query_player_move(CellState* field) { //считывание хода игрока, проверка на правильность введенных данных
     // передача в функцию поля для проверки введеной клетки на пустоту
     Pos_move pos;
     bool ok = false;
@@ -35,4 +33,3 @@ Pos_move query_player_move(GameField& field) { //считывание хода �
     }
 return pos;
 }
-

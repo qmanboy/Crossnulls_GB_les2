@@ -1,9 +1,12 @@
 #pragma once
 
 #include <cstdint>
+#include "field.hpp"
 
 //#define LENGTH create_field_size(const& size_t len)
 //#define _FIELDSIZE ((_RCLENGTH(3))*(_RCLENGTH(3)))
+
+
 
 enum class CellState { //статус клетки
      Empty, X, O
@@ -17,9 +20,17 @@ struct Pos_move { //структура для возврата введеной 
     size_t x,y;
 };
 
-constexpr size_t FIELD_WIDTH = 3; //размер поля по вертикали и горизонтали
+size_t FIELD_WIDTH = query_field_size();
 
-using GameField = CellState[FIELD_WIDTH * FIELD_WIDTH]; // массив клеток поля
+CellState* Fieldptr = new CellState[FIELD_WIDTH * FIELD_WIDTH];
+
+void init_field(CellState * field) {
+    for (size_t i = 0; i < (FIELD_WIDTH * FIELD_WIDTH); i++) {
+        field[i] = CellState::Empty;
+    }
+}    
+
+//using GameField = CellState [FIELD_WIDTH * FIELD_WIDTH]; // массив клеток поля
  
 /*struct GameState {
  GameField field;
@@ -37,14 +48,14 @@ bool is_valid_pos(size_t row, size_t col) { //проверка правильн�
     return row < FIELD_WIDTH && col < FIELD_WIDTH; //столбцы и строки меньше размера поля - true
 }
 
-CellState get_cell(const  GameField& field, size_t row, size_t col) {  //проверка состояния клетки, ссылка на массив клеток поля, значения строк и столбцов
+CellState get_cell(CellState* field, size_t row, size_t col) {  //проверка состояния клетки, ссылка на массив клеток поля, значения строк и столбцов
     if (is_valid_pos(row, col)) { //если позиция корректна
         return field[col * FIELD_WIDTH + row]; //возвращаем состояние клетки-элемента массива клеток поля 
     }
     return CellState::Empty; //возвращает пустую клетку
 }
 
-bool set_cell(GameField& field, size_t row, size_t col, CellState state) { //установить значение в клетку
+bool set_cell(CellState* field, size_t row, size_t col, CellState state) { //установить значение в клетку
     if (is_valid_pos(row,col) && get_cell(field, row, col) == CellState::Empty) { //проверка на корректность введеных данных и пустоту клетки
         field[col * FIELD_WIDTH + row] = state; //если ок - пишем в клетку
         return true;
@@ -52,7 +63,7 @@ bool set_cell(GameField& field, size_t row, size_t col, CellState state) { //у�
     return false; 
 }
 
-bool is_draw(const GameField& field) { //проверка на ничью
+bool is_draw(CellState* field) { //проверка на ничью
     for (size_t i=0; i < FIELD_WIDTH*FIELD_WIDTH; i++)
         {
             if (field[i]==CellState::Empty)
@@ -61,7 +72,7 @@ bool is_draw(const GameField& field) { //проверка на ничью
     return true;
 }
 
-CellState is_line_full(const GameField& field, size_t start_x, size_t start_y, short dx, short dy) { //проверка заполненности линий
+CellState is_line_full(CellState* field, size_t start_x, size_t start_y, short dx, short dy) { //проверка заполненности линий
     
     size_t x = start_x, y = start_y;
     CellState first_cell = get_cell(field, x, y); //получаем первую клетку линии
@@ -77,7 +88,7 @@ CellState is_line_full(const GameField& field, size_t start_x, size_t start_y, s
     return first_cell; //если все равны то возвращаем выигрышное значение
 }
 
-TurnOutCome check_turn_outcome(const GameField & field) { //макрос заменяющий возвращение результата проверки линий по входным данным
+TurnOutCome check_turn_outcome(CellState* field) { //макрос заменяющий возвращение результата проверки линий по входным данным
     #define CHECK_LINE(start_x, start_y, dx, dy) \
     if (CellState res = is_line_full(field, start_x, start_y, dx, dy); res != CellState::Empty)     \
         {                                                                                               \
@@ -117,7 +128,7 @@ void print_cell(CellState cell) { //печать в поле введеной к
     }    
 }
 
-void print_field(const GameField & field) { //вывод игрового поля после хода
+void print_field(CellState* field) { //вывод игрового поля после хода
     
     for (size_t col= 0; col < FIELD_WIDTH; col++) {
         std::cout << "|";
@@ -147,6 +158,7 @@ void print_game_outcome(TurnOutCome outcome) { //вывод результата
     
     default:
         break;
+    delete [] Fieldptr;//освобождение памяти
     }
 } 
 
@@ -169,18 +181,3 @@ bool query_replay() { //запрос на повтор игры
         return false;
 }
 
-size_t query_field_size() { //запрос размера игрового поля и проверка на корректность введеных данных
-    size_t length{};
-    bool ok{};    
-    std::cout <<"Please input field size in range 3 to 100.\n";
-    
-    while (!ok) {
-        std::cout << ">";
-        std::cin >> length;
-        if ((length >= 3) && (length <= 100)) 
-            ok = true;
-        else 
-            std::cout <<"Error: please input field size in range.\n";
-    } 
-    return length;
-}

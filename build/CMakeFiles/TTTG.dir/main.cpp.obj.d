@@ -107,8 +107,9 @@ CMakeFiles/TTTG.dir/main.cpp.obj: F:\GB\C++\ base\les2\crossnulls\main.cpp \
   C:\Program\ Files\ (x86)\Windows\ Kits\10\Include\10.0.19041.0\ucrt\ctype.h \
   C:\Program\ Files\ (x86)\Microsoft\ Visual\ Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\clocale \
   C:\Program\ Files\ (x86)\Windows\ Kits\10\Include\10.0.19041.0\ucrt\locale.h \
-  F:\GB\C++\ base\les2\crossnulls\logic.hpp \
   F:\GB\C++\ base\les2\crossnulls\playermove.hpp \
+  F:\GB\C++\ base\les2\crossnulls\logic.hpp \
+  F:\GB\C++\ base\les2\crossnulls\field.hpp \
   F:\GB\C++\ base\les2\crossnulls\aimove.hpp \
   C:\Program\ Files\ (x86)\Microsoft\ Visual\ Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\random \
   C:\Program\ Files\ (x86)\Microsoft\ Visual\ Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\algorithm \

@@ -3,7 +3,7 @@
 #include "logic.hpp"
 #include <random>
 
-size_t get_empty_cells (size_t* free_cells, const GameField& field) { //получение количества пустых клеток
+size_t get_empty_cells (size_t* free_cells, CellState* field) { //получение количества пустых клеток
     size_t* last_element = free_cells;
     size_t free_cells_num{};
     for (size_t i = 0; i < FIELD_WIDTH * FIELD_WIDTH; i++) {
@@ -16,8 +16,8 @@ size_t get_empty_cells (size_t* free_cells, const GameField& field) { //полу
     return free_cells_num;
 }
 
-Pos_move get_random_empty_cell(const GameField& field) { //получение случайной клетки
-    size_t free_cells[FIELD_WIDTH*FIELD_WIDTH]{};
+Pos_move get_random_empty_cell(CellState* field) { //получение случайной клетки
+    size_t free_cells[FIELD_WIDTH*FIELD_WIDTH];
     size_t free_cells_num = get_empty_cells(free_cells, field);
     std::mt19937 algorithm;
     std::uniform_int_distribution<> dist(0, free_cells_num - 1);
@@ -26,11 +26,11 @@ Pos_move get_random_empty_cell(const GameField& field) { //получение с
     return Pos_move{target_idx % FIELD_WIDTH, target_idx / FIELD_WIDTH};
 }
 
-Pos_move make_predict_move(const GameField& field) { //предсказание на ход вперед
-    GameField test_field;
+Pos_move make_predict_move(CellState* field) { //предсказание на ход вперед
+    CellState* test_field = new CellState[FIELD_WIDTH * FIELD_WIDTH];
     std::copy_n(field, FIELD_WIDTH * FIELD_WIDTH, test_field);
     
-    size_t free_cells[FIELD_WIDTH*FIELD_WIDTH]{};
+    size_t free_cells[FIELD_WIDTH*FIELD_WIDTH];
     size_t free_cells_num = get_empty_cells(free_cells, field);
 
     for (size_t i= 0; i < free_cells_num; i++) {
@@ -48,7 +48,7 @@ Pos_move make_predict_move(const GameField& field) { //предсказание 
     return get_random_empty_cell(field);
 }
 
-Pos_move query_ai_move(const GameField& field) {
+Pos_move query_ai_move(CellState* field) {
     
     return make_predict_move(field);
 }
