@@ -158,18 +158,18 @@ PlayerSign next_player(PlayerSign current) {
     return current == PlayerSign::X ? PlayerSign::O : PlayerSign::X;
 }
 
-bool query_replay() {
+bool query_replay() { //запрос на повтор игры
     char answer;
     std::cout << "Replay? (y - yes, any key - exit): ";
     std::cin >> answer;
     std::cout << "\n";
     if (answer == 'y')
-        return 1;
+        return true;
     else
-        return 0;
+        return false;
 }
 
-size_t query_field_size() {
+size_t query_field_size() { //запрос размера игрового поля и проверка на корректность введеных данных
     size_t length{};
     bool ok{};    
     std::cout <<"Please input field size in range 3 to 100.\n";
