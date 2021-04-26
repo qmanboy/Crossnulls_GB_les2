@@ -168,3 +168,19 @@ bool query_replay() {
     else
         return 0;
 }
+
+size_t query_field_size() {
+    size_t length{};
+    bool ok{};    
+    std::cout <<"Please input field size in range 3 to 100.\n";
+    
+    while (!ok) {
+        std::cout << ">";
+        std::cin >> length;
+        if ((length >= 3) && (length <= 100)) 
+            ok = true;
+        else 
+            std::cout <<"Error: please input field size in range.\n";
+    } 
+    return length;
+}
