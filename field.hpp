@@ -2,12 +2,12 @@
 
 #include "playermove.hpp"
 
-void print_greeting() {
+void print_greeting() { //приветствие
     std::cout << "Welcome to Tic Tac Toe Game!\n";
 }
 
 size_t query_field_size() { //запрос размера игрового поля и проверка на корректность введеных данных
-    print_greeting(); //приветствие здесь
+    print_greeting(); //приветствие
     size_t length{};
     bool ok{};    
     std::cout <<"Please input field size in range 3 to 100.\n";

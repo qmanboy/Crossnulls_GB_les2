@@ -3,7 +3,25 @@
 #include <iostream>
 #include "logic.hpp"
 
-
+PlayerSign query_player_sign() { //запрос символа игрока и проверка на корректность
+    bool ok{};
+    char player_sign;
+    while (!ok) {
+       std::cout << "Choose your sign (x or o): ";
+       std::cin >> player_sign;
+       switch (player_sign)
+       {
+        case 'x':
+            return PlayerSign::X;
+        break;
+        case 'o':
+            return PlayerSign::O;
+        default:
+            std ::cout << "\nError: sign is not x or o.\n";
+            break;
+       }
+    }
+}
 
 Pos_move query_player_move(CellState* field) { //считывание хода игрока, проверка на правильность введенных данных
     // передача в функцию поля для проверки введеной клетки на пустоту

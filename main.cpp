@@ -15,8 +15,11 @@ do //повторять пока не выбран выход из игры
 
     init_field(field); // инициализация поля
 
-    PlayerSign current_player = PlayerSign::X; //знак текущего игрока
-         //запрос и вывод размеров поля
+    PlayerSign current_player = query_player_sign(); //запрос знака игрока
+    
+    PlayerSign human_player = current_player; //инициализация для сравнения
+
+    PlayerSign buf_player = current_player; //буфер для вывода победителя
 
     print_field(field);
 
@@ -24,7 +27,7 @@ do //повторять пока не выбран выход из игры
     {
         Pos_move pos;
         
-        if (current_player == PlayerSign::X) {
+        if (current_player == human_player) {
             pos = query_player_move(field); //запрос позиции клетки хода игрока
         } else {
             pos = query_ai_move(field);
@@ -35,11 +38,13 @@ do //повторять пока не выбран выход из игры
     
         print_field(field); //вывод поля
 
+        buf_player = current_player; //запись в буфер до смены хода
+
         current_player = next_player(current_player); //переход хода (знака игрока)
         
     } while (outcome == TurnOutCome::CONTINUE); //сравнение статуса игры
 
-    print_game_outcome(outcome); //вывод результата игры
+    print_game_outcome(outcome, buf_player, human_player); //вывод результата игры
 
 } while (query_replay()); //запрос повтора игры
 

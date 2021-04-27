@@ -3,11 +3,6 @@
 #include <cstdint>
 #include "field.hpp"
 
-//#define LENGTH create_field_size(const& size_t len)
-//#define _FIELDSIZE ((_RCLENGTH(3))*(_RCLENGTH(3)))
-
-
-
 enum class CellState { //статус клетки
      Empty, X, O
 };
@@ -20,22 +15,15 @@ struct Pos_move { //структура для возврата введеной 
     size_t x,y;
 };
 
-size_t FIELD_WIDTH = query_field_size();
+size_t FIELD_WIDTH = query_field_size(); //запрос размеров поля, запись в FIELD_WIDTH
 
-CellState* Fieldptr = new CellState[FIELD_WIDTH * FIELD_WIDTH];
+CellState* Fieldptr = new CellState[FIELD_WIDTH * FIELD_WIDTH]; //выделение памяти
 
-void init_field(CellState * field) {
+void init_field(CellState * field) { //инициализация выделенной памяти
     for (size_t i = 0; i < (FIELD_WIDTH * FIELD_WIDTH); i++) {
         field[i] = CellState::Empty;
     }
 }    
-
-//using GameField = CellState [FIELD_WIDTH * FIELD_WIDTH]; // массив клеток поля
- 
-/*struct GameState {
- GameField field;
- за кого играет человек.
-};*/
 
 enum class TurnOutCome { //статус игры
     CONTINUE,
@@ -103,7 +91,7 @@ TurnOutCome check_turn_outcome(CellState* field) { //макрос заменяю
     }
 
     CHECK_LINE(0, 0, 1, 1);
-    CHECK_LINE(2, 0, -1, 1);
+    CHECK_LINE((FIELD_WIDTH-1), 0, -1, 1);
 
 #undef CHECK_LINE 
 
@@ -143,17 +131,24 @@ void print_field(CellState* field) { //вывод игрового поля по
     std::cout << "\n"; 
 }
 
-void print_game_outcome(TurnOutCome outcome) { //вывод результата игры
+void print_winner(PlayerSign cur, PlayerSign hum) { //проверка и вывод победителя игры
+    if (cur == hum)  
+        std::cout << "You win! Congrats!\n";
+    else  
+        std::cout << "Game over. AI win.\n";
+}
+
+void print_game_outcome(TurnOutCome outcome, PlayerSign current, PlayerSign humansign) { //вывод результата игры
     switch (outcome)
     {
     case TurnOutCome::DRAW:
         std::cout << "It's a draw!\n";
         break;
     case TurnOutCome::X_WIN:
-        std::cout << "You win! Congrats!\n";
+        print_winner(current, humansign); 
         break;
     case TurnOutCome::O_WIN:
-        std::cout << "Game over. AI win.\n";
+        print_winner(current, humansign);
         break;    
     
     default:
@@ -162,11 +157,11 @@ void print_game_outcome(TurnOutCome outcome) { //вывод результата
     }
 } 
 
-CellState sign_to_cell(PlayerSign sign) {
+CellState sign_to_cell(PlayerSign sign) {  //определение статуса клетки по сигну игрока
     return sign == PlayerSign::X ? CellState::X : CellState::O;
 }
 
-PlayerSign next_player(PlayerSign current) {
+PlayerSign next_player(PlayerSign current) { //смена хода
     return current == PlayerSign::X ? PlayerSign::O : PlayerSign::X;
 }
 
