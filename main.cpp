@@ -9,7 +9,7 @@ int main() {
 do //повторять пока не выбран выход из игры
 { 
 
-    TurnOutCome outcome{}; //переменная статуса игры   
+    TurnOutCome outcome{}; //переменная статуса игры     
 
     CellState *field = Fieldptr; //поле
 
