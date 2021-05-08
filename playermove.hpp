@@ -27,7 +27,7 @@ Pos_move query_player_move(CellState* field) { //считывание хода �
     // передача в функцию поля для проверки введеной клетки на пустоту
     Pos_move pos;
     bool ok = false;
-    std::cout <<"Please make a move, input two numbers in range 1 to 3\n";
+    std::cout <<"Please make a move, input two numbers in range 1 to "<< FIELD_WIDTH <<"\n";
     while (!ok) 
     {
         std::cout << "> ";
